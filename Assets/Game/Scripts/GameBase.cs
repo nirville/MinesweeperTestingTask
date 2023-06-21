@@ -1,12 +1,18 @@
 using UnityEngine;
 
-public class GameBase : MonoBehaviour 
+namespace Nirville.TestingApp
 {
-    public GameApp App
+    /// <summary>
+    /// Base class for the Game. Will acts as an entry point for all game architecture.
+    /// </summary>
+    public class GameBase : MonoBehaviour 
     {
-        get
+        public GameApp App
         {
-            return GameObject.FindObjectOfType<BounceApplication>();
+            get
+            {
+                return GameObject.FindObjectOfType<GameApp>();
+            }
         }
     }
 }
