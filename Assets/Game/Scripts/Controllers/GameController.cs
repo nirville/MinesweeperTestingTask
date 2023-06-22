@@ -7,6 +7,6 @@ namespace Nirville.TestingApp
     /// </summary>
     public class GameController : GameBase
     {
-
+        //TODO: setup how to display game elements, eg. grid and sprites.
     }
 }
