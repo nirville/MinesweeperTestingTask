@@ -7,12 +7,10 @@ namespace Nirville.TestingApp
     /// </summary>
     public class GameApp : MonoBehaviour
     {
-        public GameModel model;
-        public GameView view;
-        public GameController controller;
+        internal GameModel model;
+        internal GameView view;
+        internal GameController controller;
+
     }
 }
-
-
-
 

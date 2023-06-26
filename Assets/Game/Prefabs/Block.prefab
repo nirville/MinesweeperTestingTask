@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2403958126559083159}
   - component: {fileID: 2403958126559083154}
   - component: {fileID: 2403958126559083153}
+  - component: {fileID: 3496514913927046784}
   - component: {fileID: 2403958126559083152}
   m_Layer: 0
   m_Name: Block
@@ -112,6 +113,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3496514913927046784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2403958126559083158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7565897d5a28d4504921553a67049c38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2403958126559083152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +134,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2403958126559083158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af1280d74a61c4988a6ecc865dd3f7d5, type: 3}
+  m_Script: {fileID: 11500000, guid: a07fe22ec41e442abbb0a90d2633b3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   blockSprites:
@@ -141,9 +154,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 81b6682583a6b403bb9e1a0273b68ddc, type: 3}
   - {fileID: 21300000, guid: 147efcfe73fed4c56b09b71435fc670c, type: 3}
   - {fileID: 21300000, guid: c35a18fcc859e4fedbf5378f338bba2b, type: 3}
-  sb: {fileID: 2403958126559083154}
-  blockType: 0
-  i: 0
-  j: 0
-  show: 0
-  flag: 0
+  spriteRenderer: {fileID: 2403958126559083154}

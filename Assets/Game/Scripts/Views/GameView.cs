@@ -1,3 +1,6 @@
+using UnityEngine.SceneManagement;
+using System;
+
 namespace Nirville.TestingApp
 {
     /// <summary>
@@ -6,6 +9,9 @@ namespace Nirville.TestingApp
     /// </summary>
     public class GameView : GameBase
     {
-        //TODO: Restart button setup, input button events
+        public void RestartScene()
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }

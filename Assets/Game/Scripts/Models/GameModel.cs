@@ -7,5 +7,6 @@ namespace Nirville.TestingApp
     public class GameModel : GameBase
     {
         //TODO: setup and build the game logic here, board.cs will be applicable here
+
     }
 }

@@ -1,22 +1,34 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Nirville.TestingApp
 {
-    public class Board : MonoBehaviour 
+    internal class Board : GameController, IBoardController
     {
         [SerializeField]
         private Block block;
-        private int w = 15;
+        private int w = 20;
         private int h = 15;
+        [SerializeField]
+        private int mines = 25;
 
         private Block[,] blocks;
 
+        public int Width { get => w; set => w = value; }
+        public int Height { get => h; set => h = value; }
+        public int TotalMines { get => mines; set => mines = value; }
+
+        // Register Presenters/Controllers initially.
+        private void Awake()
+        {
+            App.controller = this;
+            boardController = this;
+        }
+
         private void Start() 
         {
-            Init();   
+            Init();
         }
 
         void Init()
@@ -26,15 +38,18 @@ namespace Nirville.TestingApp
             for(int i = 0; i < w; i++)
                 for(int j = 0; j < h; j++)
                 {
-                    var blockType = GetBlockType();
+                    var blockType = BlockType.Empty;
                     blocks[i,j] = Instantiate(block, new Vector2(i,j), Quaternion.identity);
-                    blocks[i, j].blockType = blockType;
-                    blocks[i, j].i = i;
-                    blocks[i, j].j = j;
+                    blocks[i, j].transform.parent = transform;
+                    blocks[i, j].BlockType = blockType;
+                    blocks[i, j].Row = i;
+                    blocks[i, j].Column = j;
                 }
+            SetMines();
             UpdateNearbyBlock();
         }
 
+        [ContextMenu("Tree")]
         void UpdateNearbyBlock()
         {
             for(int i = 0; i < w; i++)
@@ -43,7 +58,7 @@ namespace Nirville.TestingApp
                 {
                     int n = 0;
 
-                    if(blocks[i, j].blockType == BlockType.Mine)
+                    if(blocks[i, j].BlockType == BlockType.Mine)
                         continue;
 
                     var list = GetAllNearbyBlock(i, j);
@@ -51,24 +66,25 @@ namespace Nirville.TestingApp
                     //increase count of mine
                     foreach(var block in list)
                     {
-                        if(block.blockType == BlockType.Mine)
+                        if(block.BlockType == BlockType.Mine)
                             n++;
                     }
 
                     //update block sprite to count
                     if(n > 0)
-                        blocks[i, j].blockType = (BlockType)(n + 7);
+                        blocks[i, j].BlockType = (BlockType)(n + 7);
                 }
             }
         }
 
-        BlockType GetBlockType()
+        void SetMines()
         {
-            if(Random.Range(1, 1000) % 5==0)
+            for (int i = 0; i < mines; i++)
             {
-                return BlockType.Mine;
+                int randW = Random.Range(0, w);
+                int randH = Random.Range(0, h);
+                blocks[randW, randH].BlockType = BlockType.Mine;
             }
-            return BlockType.Empty;
         }
 
         Block GetBlock(int i, int j)
@@ -80,13 +96,15 @@ namespace Nirville.TestingApp
 
        List<Block> GetAllNearbyBlock(int i, int j, bool includeCorner = true)
        {
-            List<Block> list = new List<Block>();
-            list.Add(GetBlock(i + 1, j));
-            list.Add(GetBlock(i, j + 1));
-            list.Add(GetBlock(i - 1, j));
-            list.Add(GetBlock(i, j - 1));
+            List<Block> list = new List<Block>
+            {
+                GetBlock(i + 1, j),
+                GetBlock(i, j + 1),
+                GetBlock(i - 1, j),
+                GetBlock(i, j - 1)
+            };
 
-            if(includeCorner)
+            if (includeCorner)
             {
                 list.Add(GetBlock(i + 1, j + 1));
                 list.Add(GetBlock(i - 1, j - 1));
@@ -99,7 +117,7 @@ namespace Nirville.TestingApp
             .ToList();
        }
 
-       void RevealAll()
+       public void RevealAll()
        {
             for(int i = 0; i < w; i++)
                 for(int j = 0 ; j < h; j++)
@@ -110,21 +128,16 @@ namespace Nirville.TestingApp
        public void RevealEmpty(int i, int j)
        {
             List<Block> list = GetAllNearbyBlock(i, j, false);
-            list = list.Where(x => !x.show).ToList();
+            list = list.Where(x => !x.IsRevealed).ToList();
 
             foreach(var block in list)
             {
-                if(block.blockType == BlockType.Empty && !block.show)
+                if(block.BlockType == BlockType.Empty && !block.IsRevealed)
                 {
                     block.Reveal();
-                    RevealEmpty(block.i, block.j);
+                    RevealEmpty(block.Row, block.Column);
                 }
             }
-       }
-
-       public void Lose()
-       {
-            RevealAll();
        }
     }
 }

@@ -1,3 +1,5 @@
+using System;
+
 namespace Nirville.TestingApp
 {
 
@@ -7,6 +9,9 @@ namespace Nirville.TestingApp
     /// </summary>
     public class GameController : GameBase
     {
-        //TODO: setup how to display game elements, eg. grid and sprites.
+        public IBoardController boardController;
+
+        public event Action OnLose;
+        public event Action OnWin;
     }
 }
