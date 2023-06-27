@@ -144,14 +144,14 @@ namespace Nirville.TestingApp
             }
         }
 
-        Block GetBlock(int i, int j)
+        internal Block GetBlock(int i, int j)
         {
             if(i < 0 || j < 0 || i >= w || j >= h)
                 return null;
             return blocks[i,j];
         }
 
-       List<Block> GetAllNearbyBlock(int i, int j, bool includeCorner = true)
+       internal List<Block> GetAllNearbyBlock(int i, int j, bool includeCorner = true)
        {
             List<Block> list = new List<Block>
             {
