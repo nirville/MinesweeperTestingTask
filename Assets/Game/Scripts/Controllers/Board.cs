@@ -1,14 +1,41 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
 namespace Nirville.TestingApp
 {
+    public enum Difficulty
+    {
+        Easy,
+        Medium,
+        Hard
+    }
+
+    [System.Serializable]
+    public struct DifficultySetting
+    {
+        public int boardWidth;
+        public int boardHeight;
+        public int boardMines;
+    }
+
+    public struct DifficultySettings
+    {
+        public DifficultySetting hardDifficulty;
+        public DifficultySetting medDifficulty;
+        public DifficultySetting easyDifficulty;
+    }
+
     internal class Board : GameController, IBoardController
     {
         [SerializeField]
+        public Difficulty difficulty;
+        [SerializeField]
         private Block block;
+        [SerializeField]
         private int w = 20;
+        [SerializeField]
         private int h = 15;
         [SerializeField]
         private int mines = 25;
@@ -17,13 +44,43 @@ namespace Nirville.TestingApp
 
         public int Width { get => w; set => w = value; }
         public int Height { get => h; set => h = value; }
-        public int TotalMines { get => mines; set => mines = value; }
+        public int TotalMines { get => mines - TotalFlaggedMines; set => mines = value; }
+        public int TotalFlaggedMines { get; set; }
+
+        void ReadSettingsFromFile()
+        {
+            var jsonPath = Application.streamingAssetsPath + "/GameSettings.json";
+            var jsonString = File.ReadAllText(jsonPath);
+            DifficultySettings settings = JsonUtility.FromJson<DifficultySettings>(jsonString);
+
+            switch(difficulty)
+            {
+                case Difficulty.Easy:
+                    Width = settings.easyDifficulty.boardWidth;
+                    Height = settings.easyDifficulty.boardHeight;
+                    TotalMines = settings.easyDifficulty.boardMines;
+                    break;
+
+                case Difficulty.Medium:
+                    Width = settings.medDifficulty.boardWidth;
+                    Height = settings.medDifficulty.boardHeight;
+                    TotalMines = settings.medDifficulty.boardMines;
+                    break;
+
+                case Difficulty.Hard:
+                    Width = settings.hardDifficulty.boardWidth;
+                    Height = settings.hardDifficulty.boardHeight;
+                    TotalMines = settings.hardDifficulty.boardMines;
+                    break;
+            }
+        }
 
         // Register Presenters/Controllers initially.
         private void Awake()
         {
             App.controller = this;
             boardController = this;
+            ReadSettingsFromFile();
         }
 
         private void Start() 
@@ -49,7 +106,7 @@ namespace Nirville.TestingApp
             UpdateNearbyBlock();
         }
 
-        [ContextMenu("Tree")]
+        [ContextMenu("Update All Blocks")]
         void UpdateNearbyBlock()
         {
             for(int i = 0; i < w; i++)

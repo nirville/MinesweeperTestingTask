@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 436978254}
   - component: {fileID: 436978253}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: MinsCount-Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 560135050}
   - component: {fileID: 560135049}
   - component: {fileID: 560135048}
+  - component: {fileID: 560135052}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -480,14 +481,27 @@ RectTransform:
   m_Children:
   - {fileID: 436978252}
   - {fileID: 1679266118}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1177219166}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &560135052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560135047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 396d60790c5e14629896541c7455932b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mineCount: {fileID: 436978253}
 --- !u!1 &944286954
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,13 +594,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076041247}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1177219166}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1177219165
 GameObject:
@@ -618,6 +632,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 212326008}
+  - {fileID: 560135051}
+  - {fileID: 1076041250}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -841,5 +857,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe526a874281f49108eafbb3d17bbf9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficulty: 1
   block: {fileID: 2403958126559083152, guid: 088b2001dae234e9cb017cd1d65ad46e, type: 3}
-  mines: 54
+  w: 20
+  h: 15
+  mines: 25

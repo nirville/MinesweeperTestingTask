@@ -1,0 +1,20 @@
+﻿{
+  "easyDifficulty":
+  {
+    "boardWidth":10,
+    "boardHeight":10,
+    "boardMines":20
+  },
+  "medDifficulty":
+  {
+    "boardWidth":20,
+    "boardHeight":15,
+    "boardMines":55
+  },
+  "hardDifficulty":
+  {
+    "boardWidth":30,
+    "boardHeight":15,
+    "boardMines":120
+  }
+}

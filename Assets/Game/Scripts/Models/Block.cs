@@ -54,7 +54,6 @@ namespace Nirville.TestingApp
             input.OnClick += Click;
         }
 
-
         /// <summary>
         /// After a click is determined, checks and reveals block type
         /// </summary>
@@ -76,7 +75,7 @@ namespace Nirville.TestingApp
             else if (mouseButton == 1)
             {
                 ShowFlag();
-            }    
+            }
         }
 
         /// <summary>
@@ -98,6 +97,10 @@ namespace Nirville.TestingApp
         {
             if(!IsFlagged)
             {
+                if(BlockType == BlockType.Mine)
+                {
+                    App.controller.boardController.TotalFlaggedMines++;
+                }
                 IsFlagged = true;
                 spriteRenderer.sprite = blockSprites[(int)BlockType.Flag];
             }

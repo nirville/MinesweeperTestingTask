@@ -8,6 +8,7 @@ namespace Nirville.TestingApp
         public int Height { get; set; }
 
         public int TotalMines { get; set; }
+        public int TotalFlaggedMines { get; set; }
 
         /// <summary>
         /// Reveals the block identity at the specified location.

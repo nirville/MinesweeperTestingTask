@@ -1,4 +1,3 @@
-
 namespace Nirville.TestingApp
 {
     /// <summary>
@@ -6,7 +5,6 @@ namespace Nirville.TestingApp
     /// </summary>
     public class GameModel : GameBase
     {
-        //TODO: setup and build the game logic here, board.cs will be applicable here
-
+        //Every block will become game models children. Every block is a Data holder.
     }
 }
