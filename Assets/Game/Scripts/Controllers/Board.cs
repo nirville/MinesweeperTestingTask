@@ -194,6 +194,10 @@ namespace Nirville.TestingApp
                     block.Reveal();
                     RevealEmpty(block.Row, block.Column);
                 }
+                if (block.BlockType == BlockType.N1 && !block.IsRevealed)
+                {
+                    block.Reveal();
+                }
             }
        }
     }
